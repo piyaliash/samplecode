@@ -13,6 +13,8 @@ Add:
 Add Below code which is calling init() method of InitializeHouseKeepingLibrary component class:
 If you donot pass claims but pass a valid eisl token it will return you eisl token:
 It throws error if basic token is invalid.
+If eisl token is invalid and claims data are present it will generate new eisl token.
+There are certain other methods also in the service class like isvalidateBasictoken(), isvalidateEisltoken(), unwrapBasictoken(), unwrapEislToken().
 
 @Service
 public class Test {
