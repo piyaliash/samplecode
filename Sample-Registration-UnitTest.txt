@@ -1,0 +1,31 @@
+@Slf4j
+@ActiveProfiles("test")
+//@SuppressWarnings("deprecation")
+//@RunWith(MockitoJUnitRunner.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+public class RegistrationServiceControllerTest {
+
+	/*@Mock
+	RegistrationServiceController regServiceController;*/
+	
+	@MockBean
+	RegistrationServiceImpl registrationService;
+
+	@Autowired
+    RegistrationServiceController regServiceController;
+
+        @Test
+        public void registrationGetTest() throws Exception{
+            ResponseSO testResponse = new ResponseSO();
+            ResponseEntity<ResponseSO> responseEntity = new ResponseEntity<>(testResponse,HttpStatus.OK);
+            Mockito.lenient().when(registrationService.validateToken(Mockito.anyString())).thenReturn(true);
+            //Mockito.when(regServiceController.getRegistry( ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).thenReturn(responseEntity);
+            ResponseEntity<ResponseSO> expected = regServiceController.getRegistry("testBasic", "testEisl");
+            assertEquals("Registration found",responseEntity.getBody(),expected.getBody());
+        }
+		
+		
+		
+		Note: Active profile Test means add an application-test.yml file under test resource folder / java resource folder (just check it out).
+		There you can hardcode values related to your test cases
